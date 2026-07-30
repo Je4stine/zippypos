@@ -9,28 +9,51 @@ import androidx.compose.material3.dynamicDarkColorScheme
 import androidx.compose.material3.dynamicLightColorScheme
 import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 
 private val DarkColorScheme = darkColorScheme(
     primary = Purple80,
     secondary = PurpleGrey80,
-    tertiary = Pink80
+    tertiary = Pink80,
+    background = Color(0xFF101719),
+    onBackground = Color(0xFFDCEDEF),
+
+    surface = Color(0xFF191E20),
+    onSurface = Color(0xFFE5E2DF),
+
+    surfaceVariant = Color(0xFF263438),
+    onSurfaceVariant = Color(0xFFC3CDD0),
+
+    secondaryContainer = Color(0xFF294248),
+    onSecondaryContainer = Color(0xFFD4F3F8),
+
+    primaryContainer = Color(0xFF6A4022),
+    onPrimaryContainer = Color(0xFFFFDBC2),
+
+    outline = Color(0xFF899497)
 )
 
 private val LightColorScheme = lightColorScheme(
     primary = Purple40,
     secondary = PurpleGrey40,
-    tertiary = Pink40
+    tertiary = Pink40,
+    background = Color(0xFFEAF7FB),
+    onBackground = Color(0xFF1A1C1D),
 
-    /* Other default colors to override
-    background = Color(0xFFFFFBFE),
-    surface = Color(0xFFFFFBFE),
-    onPrimary = Color.White,
-    onSecondary = Color.White,
-    onTertiary = Color.White,
-    onBackground = Color(0xFF1C1B1F),
-    onSurface = Color(0xFF1C1B1F),
-    */
+    surface = Color(0xFFFFF8F3),
+    onSurface = Color(0xFF302B27),
+
+    surfaceVariant = Color(0xFFDDECEF),
+    onSurfaceVariant = Color(0xFF554F4A),
+
+    secondaryContainer = Color(0xFFDCEFF3),
+    onSecondaryContainer = Color(0xFF25383C),
+
+    primaryContainer = Color(0xFFFFD9BC),
+    onPrimaryContainer = Color(0xFF4A260D),
+
+    outline = Color(0xFF8E8178)
 )
 
 @Composable
@@ -52,7 +75,7 @@ fun ZippyPOSTheme(
 
     MaterialTheme(
         colorScheme = colorScheme,
-        typography = Typography,
+        typography =  AppTypography,
         content = content
     )
 }

@@ -1,6 +1,9 @@
 package com.jsoftware.zippypos.presentation.navigation
 
+import androidx.compose.foundation.layout.WindowInsets
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Person
@@ -19,6 +22,7 @@ import androidx.navigation3.ui.NavDisplay
 import com.jsoftware.zippypos.presentation.screens.activity.Activity
 import com.jsoftware.zippypos.presentation.screens.home.Home
 import com.jsoftware.zippypos.presentation.screens.inventory.Inventory
+import com.jsoftware.zippypos.presentation.screens.profile.Profile
 
 @Composable
 fun BottomTabs(){
@@ -34,6 +38,8 @@ fun BottomTabs(){
 
 
     Scaffold(
+        modifier = Modifier.fillMaxSize(),
+        contentWindowInsets = WindowInsets(0, 0, 0, 0),
         bottomBar = {
             NavigationBar{
                 NavigationBarItem(
@@ -67,7 +73,7 @@ fun BottomTabs(){
                 )
 
                 NavigationBarItem(
-                    selected = currentTab == Screens.Home,
+                    selected = currentTab == Screens.Profile,
                     onClick = {selectTab(Screens.Profile) },
                     icon = { Icon(
                         imageVector = Icons.Default.Person,
@@ -98,7 +104,7 @@ fun BottomTabs(){
                     Inventory()
                 }
                 entry<Screens.Profile> {
-                    Home()
+                    Profile()
                 }
 
             }
