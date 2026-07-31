@@ -10,9 +10,9 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.grid.GridCells
+import androidx.compose.foundation.lazy.grid.GridItemSpan
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
@@ -34,6 +34,7 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
@@ -71,6 +72,7 @@ fun Home(){
         containerColor = Color(0xFFEAF7FB),
         topBar ={
             TopAppBar(
+                modifier = Modifier.padding(0.dp),
                 title = {
                 Text("Purchase Management", fontSize = 15.sp)
             },
@@ -89,73 +91,74 @@ fun Home(){
                 )
         }
     ) { paddingValues ->
-        Column() {
-        LazyColumn(modifier = Modifier.padding(paddingValues).padding(vertical = 0.dp)) {
-          item {
-              OutlinedTextField(
-                  onValueChange = {},
-                  value = "",
-                  placeholder = {
-                      Text(
-                          text = "Search items by name...",
-                          fontSize = 14.sp
-                      )
-                  },
-                  leadingIcon = {
-                      Icon(Icons.Default.Search, contentDescription = "Search bar", modifier = Modifier.size(17.dp))
-                  },
-                  trailingIcon = {
-                      IconButton(onClick = {}) {
-                          Icon(Icons.Default.DocumentScanner, contentDescription = "scan", Modifier.size(17.dp))
-                      }
-                  },
-                  modifier = Modifier
-                      .fillMaxWidth()
-                      .padding(horizontal = 20.dp, vertical = 10.dp)
-                      .height(50.dp)
-                      .clip(RoundedCornerShape(40.dp))
-                      .background(Color.White),
-                  shape = RoundedCornerShape(40.dp),
-              )
-          }
+        LazyVerticalGrid(
+            columns = GridCells.Fixed(2),
+            modifier = Modifier.fillMaxSize().padding(paddingValues),
+            contentPadding = PaddingValues(start = 10.dp, end = 0.dp, top = 0.dp, bottom = 0.dp),
+            horizontalArrangement = Arrangement.spacedBy(10.dp),
+            verticalArrangement = Arrangement.spacedBy(10.dp),
 
-            item {
-                LazyRow( modifier = Modifier.padding(vertical = 20.dp)
-                    .fillMaxWidth()
-                    .padding(start = 20.dp)
-                    .clip(RoundedCornerShape(topStart = 20.dp, bottomStart = 20.dp))
-                    .background(Color.White)
-                ) {
-                    items(categories.size) { category ->
-                        Column(
-                            horizontalAlignment = Alignment.CenterHorizontally,
-                            modifier = Modifier
-                            .width(80.dp)
-                            .padding(4.dp)
-                            .clip(RoundedCornerShape(20.dp))
-                            .background(Color(0xFFEAF7FB))
 
-                        ){
-                            Text(text = categories[category], fontSize = 12.sp, modifier = Modifier.padding(5.dp))
+        ) {
+            item(span = { GridItemSpan(maxLineSpan) }) {
+                OutlinedTextField(
+                    onValueChange = {
+                        searchQuery = it
+                    },
+                    value = searchQuery,
+                    placeholder = {
+                        Text(
+                            text = "Search items by name...",
+                            fontSize = 14.sp
+                        )
+                    },
+                    leadingIcon = {
+                        Icon(Icons.Default.Search, contentDescription = "Search bar", modifier = Modifier.size(17.dp))
+                    },
+                    trailingIcon = {
+                        IconButton(onClick = {}) {
+                            Icon(Icons.Default.DocumentScanner, contentDescription = "scan", Modifier.size(17.dp))
+                        }
+                    },
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = 20.dp, vertical = 10.dp)
+                        .height(50.dp)
+                        .clip(RoundedCornerShape(40.dp))
+                        .background(Color.White),
+                    shape = RoundedCornerShape(40.dp),
+                )
+            }
+            item(span = { GridItemSpan(maxLineSpan) }){
+
+                    LazyRow( modifier = Modifier.padding(vertical = 20.dp)
+                        .fillMaxWidth()
+                        .padding(start = 20.dp)
+                        .clip(RoundedCornerShape(topStart = 20.dp, bottomStart = 20.dp))
+                        .background(Color.White)
+                    ) {
+                        items(categories.size) { category ->
+                            Column(
+                                horizontalAlignment = Alignment.CenterHorizontally,
+                                modifier = Modifier
+                                    .width(80.dp)
+                                    .padding(4.dp)
+                                    .clip(RoundedCornerShape(20.dp))
+                                    .background(Color(0xFFEAF7FB))
+
+                            ){
+                                Text(text = categories[category], fontSize = 12.sp, modifier = Modifier.padding(5.dp))
+                            }
                         }
                     }
                 }
+
+            items(items.size) {item ->
+                ProductCard(imageUrl = items[item])
             }
 
-        }
-            LazyVerticalGrid(
-                columns = GridCells.Fixed(2),
-                modifier = Modifier.fillMaxSize(),
-                contentPadding = PaddingValues(10.dp),
-                horizontalArrangement = Arrangement.spacedBy(10.dp),
-                verticalArrangement = Arrangement.spacedBy(10.dp)
-            ) {
-                items(items.size) {item ->
-                    ProductCard(imageUrl = items[item])
-                }
-            }
         }
     }
 }
 
-///TO DO. CHANGE LAYOUT TO LAZY GRID WITH SPANS
+
